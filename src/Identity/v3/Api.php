@@ -539,6 +539,7 @@ class Api extends AbstractApi
                 'defaultProjectId' => $this->params->defaultProjectId(),
                 'description'      => $this->params->desc('user'),
                 'email'            => $this->params->email(),
+                'password'         => $this->params->password(),
                 'enabled'          => $this->params->enabled('user'),
             ]
         ];
