@@ -1,14 +1,14 @@
-<?php
+<?php declare (strict_types=1);
 
 namespace OpenStack\Identity\v3\Models;
 
-use OpenStack\Common\Error\BadResponseError;
-use OpenStack\Common\Resource\AbstractResource;
-use OpenStack\Common\Resource\Creatable;
-use OpenStack\Common\Resource\Deletable;
-use OpenStack\Common\Resource\Listable;
-use OpenStack\Common\Resource\Retrievable;
-use OpenStack\Common\Resource\Updateable;
+use OpenCloud\Common\Error\BadResponseError;
+use OpenCloud\Common\Resource\AbstractResource;
+use OpenCloud\Common\Resource\Creatable;
+use OpenCloud\Common\Resource\Deletable;
+use OpenCloud\Common\Resource\Listable;
+use OpenCloud\Common\Resource\Retrievable;
+use OpenCloud\Common\Resource\Updateable;
 
 /**
  * @property \OpenStack\Identity\v3\Api $api
@@ -40,7 +40,7 @@ class Group extends AbstractResource implements Creatable, Listable, Retrievable
      *
      * @param array $data {@see \OpenStack\Identity\v3\Api::postGroups}
      */
-    public function create(array $data)
+    public function create(array $data): Creatable
     {
         $response = $this->execute($this->api->postGroups(), $data);
         return $this->populateFromResponse($response);
@@ -52,7 +52,7 @@ class Group extends AbstractResource implements Creatable, Listable, Retrievable
     public function retrieve()
     {
         $response = $this->execute($this->api->getGroup(), ['id' => $this->id]);
-        return $this->populateFromResponse($response);
+        $this->populateFromResponse($response);
     }
 
     /**
@@ -61,7 +61,7 @@ class Group extends AbstractResource implements Creatable, Listable, Retrievable
     public function update()
     {
         $response = $this->executeWithState($this->api->patchGroup());
-        return $this->populateFromResponse($response);
+        $this->populateFromResponse($response);
     }
 
     /**
@@ -77,7 +77,7 @@ class Group extends AbstractResource implements Creatable, Listable, Retrievable
      *
      * @return \Generator
      */
-    public function listUsers(array $options = [])
+    public function listUsers(array $options = []): \Generator
     {
         $options['id'] = $this->id;
         return $this->model(User::class)->enumerate($this->api->getGroupUsers(), $options);
@@ -104,7 +104,7 @@ class Group extends AbstractResource implements Creatable, Listable, Retrievable
      *
      * @return bool
      */
-    public function checkMembership(array $options)
+    public function checkMembership(array $options): bool
     {
         try {
             $this->execute($this->api->headGroupUser(), ['groupId' => $this->id] + $options);

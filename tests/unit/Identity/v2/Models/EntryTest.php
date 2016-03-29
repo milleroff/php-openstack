@@ -4,7 +4,7 @@ namespace OpenStack\Test\Identity\v2\Models;
 
 use OpenStack\Identity\v2\Api;
 use OpenStack\Identity\v2\Models\Entry;
-use OpenStack\Test\TestCase;
+use OpenCloud\Test\TestCase;
 
 class EntryTest extends TestCase
 {
@@ -19,6 +19,6 @@ class EntryTest extends TestCase
 
     public function test_null_is_returned_when_no_endpoints_are_found()
     {
-        $this->assertNull($this->entry->getEndpointUrl('foo', 'bar'));
+        $this->assertEmpty($this->entry->getEndpointUrl('foo', 'bar'));
     }
 }

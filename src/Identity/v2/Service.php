@@ -1,9 +1,10 @@
-<?php
+<?php declare (strict_types=1);
 
 namespace OpenStack\Identity\v2;
 
-use OpenStack\Common\Auth\IdentityService;
-use OpenStack\Common\Service\AbstractService;
+use GuzzleHttp\ClientInterface;
+use OpenCloud\Common\Auth\IdentityService;
+use OpenCloud\Common\Service\AbstractService;
 use OpenStack\Identity\v2\Models\Catalog;
 use OpenStack\Identity\v2\Models\Token;
 
@@ -14,7 +15,12 @@ use OpenStack\Identity\v2\Models\Token;
  */
 class Service extends AbstractService implements IdentityService
 {
-    public function authenticate(array $options = [])
+    public static function factory(ClientInterface $client): self
+    {
+        return new static($client, new Api());
+    }
+
+    public function authenticate(array $options = []): array
     {
         $definition = $this->api->postToken();
 
@@ -39,7 +45,7 @@ class Service extends AbstractService implements IdentityService
      *
      * @return Models\Token
      */
-    public function generateToken(array $options = [])
+    public function generateToken(array $options = []): Token
     {
         $response = $this->execute($this->api->postToken(), $options);
         return $this->model(Token::class, $response);

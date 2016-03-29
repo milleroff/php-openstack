@@ -1,14 +1,14 @@
-<?php
+<?php declare (strict_types=1);
 
 namespace OpenStack\Identity\v3\Models;
 
-use OpenStack\Common\Error\BadResponseError;
-use OpenStack\Common\Resource\AbstractResource;
-use OpenStack\Common\Resource\Creatable;
-use OpenStack\Common\Resource\Deletable;
-use OpenStack\Common\Resource\Listable;
-use OpenStack\Common\Resource\Retrievable;
-use OpenStack\Common\Resource\Updateable;
+use OpenCloud\Common\Error\BadResponseError;
+use OpenCloud\Common\Resource\AbstractResource;
+use OpenCloud\Common\Resource\Creatable;
+use OpenCloud\Common\Resource\Deletable;
+use OpenCloud\Common\Resource\Listable;
+use OpenCloud\Common\Resource\Retrievable;
+use OpenCloud\Common\Resource\Updateable;
 
 /**
  * @property \OpenStack\Identity\v3\Api $api
@@ -38,7 +38,7 @@ class Domain extends AbstractResource implements Creatable, Listable, Retrievabl
      *
      * @param array $data {@see \OpenStack\Identity\v3\Api::postDomains}
      */
-    public function create(array $data)
+    public function create(array $data): Creatable
     {
         $response = $this->execute($this->api->postDomains(), $data);
         return $this->populateFromResponse($response);
@@ -50,7 +50,7 @@ class Domain extends AbstractResource implements Creatable, Listable, Retrievabl
     public function retrieve()
     {
         $response = $this->executeWithState($this->api->getDomain());
-        return $this->populateFromResponse($response);
+        $this->populateFromResponse($response);
     }
 
     /**
@@ -59,7 +59,7 @@ class Domain extends AbstractResource implements Creatable, Listable, Retrievabl
     public function update()
     {
         $response = $this->executeWithState($this->api->patchDomain());
-        return $this->populateFromResponse($response);
+        $this->populateFromResponse($response);
     }
 
     /**
@@ -75,7 +75,7 @@ class Domain extends AbstractResource implements Creatable, Listable, Retrievabl
      *
      * @return \Generator
      */
-    public function listUserRoles(array $options = [])
+    public function listUserRoles(array $options = []): \Generator
     {
         $options['domainId'] = $this->id;
         return $this->model(Role::class)->enumerate($this->api->getUserRoles(), $options);
@@ -94,7 +94,7 @@ class Domain extends AbstractResource implements Creatable, Listable, Retrievabl
      *
      * @return bool
      */
-    public function checkUserRole(array $options = [])
+    public function checkUserRole(array $options = []): bool
     {
         try {
             $this->execute($this->api->headUserRole(), ['domainId' => $this->id] + $options);
@@ -117,7 +117,7 @@ class Domain extends AbstractResource implements Creatable, Listable, Retrievabl
      *
      * @return \Generator
      */
-    public function listGroupRoles(array $options = [])
+    public function listGroupRoles(array $options = []): \Generator
     {
         $options['domainId'] = $this->id;
         return $this->model(Role::class)->enumerate($this->api->getGroupRoles(), $options);
@@ -136,7 +136,7 @@ class Domain extends AbstractResource implements Creatable, Listable, Retrievabl
      *
      * @return bool
      */
-    public function checkGroupRole(array $options = [])
+    public function checkGroupRole(array $options = []): bool
     {
         try {
             $this->execute($this->api->headGroupRole(), ['domainId' => $this->id] + $options);

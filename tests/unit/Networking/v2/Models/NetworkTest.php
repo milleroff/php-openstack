@@ -5,7 +5,7 @@ namespace OpenStack\Test\Networking\v2\Models;
 use GuzzleHttp\Psr7\Response;
 use OpenStack\Networking\v2\Api;
 use OpenStack\Networking\v2\Models\Network;
-use OpenStack\Test\TestCase;
+use OpenCloud\Test\TestCase;
 
 class NetworkTest extends TestCase
 {
@@ -93,7 +93,7 @@ class NetworkTest extends TestCase
 
         $this->setupMock('PUT', 'v2.0/networks/networkId', $expectedJson, [], 'network-put');
 
-        $this->assertInstanceOf(Network::class, $this->network->update());
+        $this->network->update();
     }
 
     public function test_it_retrieves()

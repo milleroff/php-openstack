@@ -1,13 +1,12 @@
-<?php
+<?php declare (strict_types=1);
 
 namespace OpenStack\Networking\v2\Models;
 
-use OpenStack\Common\Resource\AbstractResource;
-use OpenStack\Common\Resource\Listable;
-use OpenStack\Common\Resource\Creatable;
-use OpenStack\Common\Resource\Deletable;
-use OpenStack\Common\Resource\Retrievable;
-use OpenStack\Common\Transport\Utils;
+use OpenCloud\Common\Resource\AbstractResource;
+use OpenCloud\Common\Resource\Listable;
+use OpenCloud\Common\Resource\Creatable;
+use OpenCloud\Common\Resource\Deletable;
+use OpenCloud\Common\Resource\Retrievable;
 
 /**
  * Represents a Networking v2 Network.
@@ -82,7 +81,7 @@ class Subnet extends AbstractResource implements Listable, Retrievable, Creatabl
      *
      * @return Subnet[]
      */
-    public function bulkCreate(array $data)
+    public function bulkCreate(array $data): array
     {
         $response = $this->execute($this->api->postSubnets(), ['subnets' => $data]);
         return $this->extractMultipleInstances($response);
@@ -93,7 +92,7 @@ class Subnet extends AbstractResource implements Listable, Retrievable, Creatabl
      *
      * @param array $data {@see \OpenStack\Networking\v2\Api::postSubnet}
      */
-    public function create(array $data)
+    public function create(array $data): Creatable
     {
         $response = $this->execute($this->api->postSubnet(), $data);
         return $this->populateFromResponse($response);
@@ -105,7 +104,7 @@ class Subnet extends AbstractResource implements Listable, Retrievable, Creatabl
     public function update()
     {
         $response = $this->executeWithState($this->api->putSubnet());
-        return $this->populateFromResponse($response);
+        $this->populateFromResponse($response);
     }
 
     /**

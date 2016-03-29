@@ -5,7 +5,7 @@ namespace OpenStack\Test\Subneting\v2\Models;
 use GuzzleHttp\Psr7\Response;
 use OpenStack\Networking\v2\Api;
 use OpenStack\Networking\v2\Models\Subnet;
-use OpenStack\Test\TestCase;
+use OpenCloud\Test\TestCase;
 
 class SubnetTest extends TestCase
 {
@@ -105,7 +105,7 @@ class SubnetTest extends TestCase
 
         $this->setupMock('PUT', 'v2.0/subnets/subnetId', $expectedJson, [], 'subnet-put');
 
-        $this->assertInstanceOf(Subnet::class, $this->subnet->update());
+        $this->subnet->update();
     }
 
     public function test_it_retrieves()

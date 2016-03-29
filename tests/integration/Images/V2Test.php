@@ -1,11 +1,11 @@
 <?php
 
-namespace OpenStack\Integration\Images;
+namespace OpenStack\integration\Images;
 
 use OpenStack\Images\v2\Models\Image;
 use OpenStack\Images\v2\Models\Member;
-use OpenStack\Integration\TestCase;
-use OpenStack\OpenStack;
+use OpenCloud\Integration\TestCase;
+use OpenStack\Integration\Utils;
 
 class V2Test extends TestCase
 {
@@ -17,7 +17,7 @@ class V2Test extends TestCase
     private function getService()
     {
         if (null === $this->service) {
-            $this->service = (new OpenStack())->imagesV2($this->getAuthOpts());
+            $this->service = Utils::getOpenStack()->imagesV2();
         }
 
         return $this->service;

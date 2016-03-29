@@ -1,9 +1,9 @@
-<?php
+<?php declare (strict_types=1);
 
 namespace OpenStack\Identity\v2\Models;
 
-use OpenStack\Common\Resource\AbstractResource;
-use OpenStack\Common\Transport\Utils;
+use OpenCloud\Common\Resource\AbstractResource;
+use OpenCloud\Common\Transport\Utils;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -11,7 +11,7 @@ use Psr\Http\Message\ResponseInterface;
  *
  * @package OpenStack\Identity\v2\Models
  */
-class Catalog extends AbstractResource implements \OpenStack\Common\Auth\Catalog
+class Catalog extends AbstractResource implements \OpenCloud\Common\Auth\Catalog
 {
     const DEFAULT_URL_TYPE = 'publicURL';
 
@@ -25,17 +25,23 @@ class Catalog extends AbstractResource implements \OpenStack\Common\Auth\Catalog
     /**
      * {@inheritDoc}
      */
-    public function populateFromResponse(ResponseInterface $response)
+    public function populateFromResponse(ResponseInterface $response): self
     {
         $entries = Utils::jsonDecode($response)['access']['serviceCatalog'];
 
         foreach ($entries as $entry) {
             $this->entries[] = $this->model(Entry::class, $entry);
         }
+
+        return $this;
     }
 
-    public function getServiceUrl($serviceName, $serviceType, $region, $urlType = self::DEFAULT_URL_TYPE)
-    {
+    public function getServiceUrl(
+        string $serviceName,
+        string $serviceType,
+        string $region,
+        string $urlType = self::DEFAULT_URL_TYPE
+    ): string {
         foreach ($this->entries as $entry) {
             if ($entry->matches($serviceName, $serviceType) && ($url = $entry->getEndpointUrl($region, $urlType))) {
                 return $url;

@@ -1,11 +1,11 @@
-<?php
+<?php declare (strict_types=1);
 
 namespace OpenStack\Identity\v3\Models;
 
-use OpenStack\Common\Resource\AbstractResource;
-use OpenStack\Common\Resource\Creatable;
-use OpenStack\Common\Resource\Deletable;
-use OpenStack\Common\Resource\Updateable;
+use OpenCloud\Common\Resource\AbstractResource;
+use OpenCloud\Common\Resource\Creatable;
+use OpenCloud\Common\Resource\Deletable;
+use OpenCloud\Common\Resource\Updateable;
 
 /**
  * @property \OpenStack\Identity\v3\Api $api
@@ -42,7 +42,7 @@ class Endpoint extends AbstractResource implements Creatable, Updateable, Deleta
      *
      * @param array $data {@see \OpenStack\Identity\v3\Api::postEndpoints}
      */
-    public function create(array $data)
+    public function create(array $data): Creatable
     {
         $response = $this->execute($this->api->postEndpoints(), $data);
         return $this->populateFromResponse($response);
@@ -54,7 +54,7 @@ class Endpoint extends AbstractResource implements Creatable, Updateable, Deleta
     public function update()
     {
         $response = $this->executeWithState($this->api->patchEndpoint());
-        return $this->populateFromResponse($response);
+        $this->populateFromResponse($response);
     }
 
     /**
@@ -65,12 +65,12 @@ class Endpoint extends AbstractResource implements Creatable, Updateable, Deleta
         $this->execute($this->api->deleteEndpoint(), $this->getAttrs(['id']));
     }
 
-    public function regionMatches($value)
+    public function regionMatches(string $value): bool
     {
         return $this->region && $this->region == $value;
     }
 
-    public function interfaceMatches($value)
+    public function interfaceMatches(string $value): bool
     {
         return $this->interface && $this->interface == $value;
     }

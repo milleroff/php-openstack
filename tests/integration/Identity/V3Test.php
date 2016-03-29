@@ -1,9 +1,9 @@
 <?php
 
-namespace OpenStack\Integration\Identity;
+namespace OpenStack\integration\Identity;
 
 use OpenStack\Identity\v3\Models;
-use OpenStack\Integration\TestCase;
+use OpenCloud\Integration\TestCase;
 use OpenStack\Integration\Utils;
 use OpenStack\OpenStack;
 
@@ -17,7 +17,7 @@ class V3Test extends TestCase
     private function getService()
     {
         if (null === $this->service) {
-            $this->service = (new OpenStack())->identityV3(Utils::getAuthOpts());
+            $this->service = Utils::getOpenStack()->identityV3();
         }
 
         return $this->service;

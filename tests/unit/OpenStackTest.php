@@ -2,11 +2,13 @@
 
 namespace OpenStack\Test;
 
-use OpenStack\Common\Service\Builder;
+use GuzzleHttp\ClientInterface;
+use OpenCloud\Test\TestCase;
+use OpenCloud\Common\Service\Builder;
+use OpenStack\Identity\v3\Api;
 use OpenStack\OpenStack;
-use Prophecy\PhpUnit\ProphecyTestCase;
 
-class OpenStackTest extends ProphecyTestCase
+class OpenStackTest extends TestCase
 {
     private $builder;
     private $openstack;
@@ -14,14 +16,15 @@ class OpenStackTest extends ProphecyTestCase
     public function setUp()
     {
         $this->builder = $this->prophesize(Builder::class);
-        $this->openstack = new OpenStack([], $this->builder->reveal());
+        $this->openstack = new OpenStack(['authUrl' => ''], $this->builder->reveal());
     }
 
     public function test_it_supports_compute_v2()
     {
         $this->builder
             ->createService('Compute', 2, ['catalogName' => 'nova', 'catalogType' => 'compute'])
-            ->shouldBeCalled();
+            ->shouldBeCalled()
+            ->willReturn($this->service('Compute', 2));
 
         $this->openstack->computeV2();
     }
@@ -30,7 +33,8 @@ class OpenStackTest extends ProphecyTestCase
     {
         $this->builder
             ->createService('Identity', 2, ['catalogName' => false, 'catalogType' => false])
-            ->shouldBeCalled();
+            ->shouldBeCalled()
+            ->willReturn($this->service('Identity', 2));
 
         $this->openstack->identityV2();
     }
@@ -39,7 +43,8 @@ class OpenStackTest extends ProphecyTestCase
     {
         $this->builder
             ->createService('Identity', 3, ['catalogName' => false, 'catalogType' => false])
-            ->shouldBeCalled();
+            ->shouldBeCalled()
+            ->willReturn($this->service('Identity', 3));
 
         $this->openstack->identityV3();
     }
@@ -48,7 +53,8 @@ class OpenStackTest extends ProphecyTestCase
     {
         $this->builder
             ->createService('Networking', 2, ['catalogName' => 'neutron', 'catalogType' => 'network'])
-            ->shouldBeCalled();
+            ->shouldBeCalled()
+            ->willReturn($this->service('Networking', 2));
 
         $this->openstack->networkingV2();
     }
@@ -57,7 +63,8 @@ class OpenStackTest extends ProphecyTestCase
     {
         $this->builder
             ->createService('ObjectStore', 1, ['catalogName' => 'swift', 'catalogType' => 'object-store'])
-            ->shouldBeCalled();
+            ->shouldBeCalled()
+            ->willReturn($this->service('ObjectStore', 1));
 
         $this->openstack->objectStoreV1();
     }
@@ -66,7 +73,8 @@ class OpenStackTest extends ProphecyTestCase
     {
         $this->builder
             ->createService('BlockStorage', 2, ['catalogName' => 'cinderv2', 'catalogType' => 'volumev2'])
-            ->shouldBeCalled();
+            ->shouldBeCalled()
+            ->willReturn($this->service('BlockStorage', 2));
 
         $this->openstack->blockStorageV2();
     }
@@ -75,8 +83,16 @@ class OpenStackTest extends ProphecyTestCase
     {
         $this->builder
             ->createService('Images', 2, ['catalogName' => 'glance', 'catalogType' => 'image'])
-            ->shouldBeCalled();
+            ->shouldBeCalled()
+            ->willReturn($this->service('Images', 2));
 
         $this->openstack->imagesV2();
+    }
+
+    private function service($service, $version)
+    {
+        $class = sprintf("OpenStack\\%s\\v%d\\Service", $service, $version);
+
+        return new $class($this->prophesize(ClientInterface::class)->reveal(), new Api());
     }
 }

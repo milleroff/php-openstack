@@ -1,18 +1,17 @@
-<?php
+<?php declare (strict_types=1);
 
 namespace OpenStack\Identity\v2;
 
-use OpenStack\Common\Api\ApiInterface;
+use OpenCloud\Common\Api\ApiInterface;
 
 /**
  * Represents the OpenStack Identity v2 API.
  *
- * @internal
  * @package OpenStack\Identity\v2
  */
 class Api implements ApiInterface
 {
-    public function postToken()
+    public function postToken(): array
     {
         return [
             'method' => 'POST',

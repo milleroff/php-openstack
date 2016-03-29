@@ -1,16 +1,16 @@
-<?php
+<?php declare (strict_types = 1);
 
 namespace OpenStack\Identity\v3\Models;
 
 use Psr\Http\Message\ResponseInterface;
-use OpenStack\Common\Resource\AbstractResource;
-use OpenStack\Common\Resource\Creatable;
-use OpenStack\Common\Resource\Retrievable;
+use OpenCloud\Common\Resource\AbstractResource;
+use OpenCloud\Common\Resource\Creatable;
+use OpenCloud\Common\Resource\Retrievable;
 
 /**
  * @property \OpenStack\Identity\v3\Api $api
  */
-class Token extends AbstractResource implements Creatable, Retrievable, \OpenStack\Common\Auth\Token
+class Token extends AbstractResource implements Creatable, Retrievable, \OpenCloud\Common\Auth\Token
 {
     /** @var array */
     public $methods;
@@ -44,7 +44,7 @@ class Token extends AbstractResource implements Creatable, Retrievable, \OpenSta
 
     protected $aliases = [
         'expires_at' => 'expires',
-        'issued_at'  => 'issued'
+        'issued_at'  => 'issued',
     ];
 
     /**
@@ -53,16 +53,14 @@ class Token extends AbstractResource implements Creatable, Retrievable, \OpenSta
     public function populateFromResponse(ResponseInterface $response)
     {
         parent::populateFromResponse($response);
-
         $this->id = $response->getHeaderLine('X-Subject-Token');
-
         return $this;
     }
 
     /**
      * @return string
      */
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }
@@ -70,7 +68,7 @@ class Token extends AbstractResource implements Creatable, Retrievable, \OpenSta
     /**
      * @return bool TRUE if the token has expired (and is invalid); FALSE otherwise.
      */
-    public function hasExpired()
+    public function hasExpired(): bool
     {
         return $this->expires <= new \DateTimeImmutable('now', $this->expires->getTimezone());
     }
@@ -81,7 +79,6 @@ class Token extends AbstractResource implements Creatable, Retrievable, \OpenSta
     public function retrieve()
     {
         $response = $this->execute($this->api->getTokens(), ['tokenId' => $this->id]);
-
         $this->populateFromResponse($response);
     }
 
@@ -90,7 +87,7 @@ class Token extends AbstractResource implements Creatable, Retrievable, \OpenSta
      *
      * @param array $data {@see \OpenStack\Identity\v3\Api::postTokens}
      */
-    public function create(array $data)
+    public function create(array $data): Creatable
     {
         if (isset($data['user'])) {
             $data['methods'] = ['password'];

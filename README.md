@@ -1,6 +1,6 @@
 # PHP OpenStack SDK
 
-[![Build Status](https://scrutinizer-ci.com/g/php-opencloud/openstack/badges/build.png?b=master)](https://scrutinizer-ci.com/g/php-opencloud/openstack/build-status/master)
+[![Build Status](https://travis-ci.org/php-opencloud/openstack.svg?branch=master)](https://travis-ci.org/php-opencloud/openstack)
 [![Code Coverage](https://scrutinizer-ci.com/g/php-opencloud/openstack/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/php-opencloud/openstack/?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/php-opencloud/openstack/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/php-opencloud/openstack/?branch=master)
 
@@ -10,8 +10,8 @@ OpenStack services, and versions of services, are supported.
 
 ## Links
 
-* [Official documentation](http://php-opencloudopenstack.readthedocs.org/en/latest/index.html)
-* [Reference documentation](http://refdocs.php-opencloud.com)
+* [Official documentation](http://docs.os.php-opencloud.com/)
+* [Reference documentation](http://refdocs.os.php-opencloud.com)
 * [Developer support](https://developer.rackspace.com/)
 * [Mailing list](https://groups.google.com/forum/#!forum/php-opencloud)
 * [Contributing guide](/CONTRIBUTING.md)
@@ -19,27 +19,13 @@ OpenStack services, and versions of services, are supported.
 
 ## Requirements
 
-* PHP 5.6
-* cURL extension
+* PHP 7.0
 
 ## How to install
 
 ```bash
 composer require php-opencloud/openstack
 ```
-
-This will automatically add the following lines to your local `composer.json` file:
-
-```json
-{
-    "require": {
-        "php-opencloud/openstack": "X.Y.Z"
-    }
-}
-```
-
-where `X.Y.Z` is the most recent release version. For a more comprehensive installation guide, please consult our 
-[official documentation]().
 
 ## Help and feedback
 

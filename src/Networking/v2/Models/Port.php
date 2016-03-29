@@ -1,12 +1,12 @@
-<?php
+<?php declare (strict_types=1);
 
 namespace OpenStack\Networking\v2\Models;
 
-use OpenStack\Common\Resource\AbstractResource;
-use OpenStack\Common\Resource\Creatable;
-use OpenStack\Common\Resource\Deletable;
-use OpenStack\Common\Resource\Listable;
-use OpenStack\Common\Resource\Updateable;
+use OpenCloud\Common\Resource\AbstractResource;
+use OpenCloud\Common\Resource\Creatable;
+use OpenCloud\Common\Resource\Deletable;
+use OpenCloud\Common\Resource\Listable;
+use OpenCloud\Common\Resource\Updateable;
 
 /**
  * @property \OpenStack\Networking\v2\Api $api
@@ -19,7 +19,6 @@ class Port extends AbstractResource implements Creatable, Updateable, Deletable,
      * @var string
      */
     public $status;
-
 
     /**
      * The port name.
@@ -118,13 +117,13 @@ class Port extends AbstractResource implements Creatable, Updateable, Deletable,
     /**
      * {@inheritDoc}
      */
-    public function create(array $userOptions)
+    public function create(array $userOptions): Creatable
     {
         $response = $this->execute($this->api->postSinglePort(), $userOptions);
         return $this->populateFromResponse($response);
     }
 
-    public function bulkCreate(array $userOptions)
+    public function bulkCreate(array $userOptions): array
     {
         $response = $this->execute($this->api->postMultiplePorts(), ['ports' => $userOptions]);
         return $this->extractMultipleInstances($response);

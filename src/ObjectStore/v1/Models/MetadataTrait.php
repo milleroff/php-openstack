@@ -1,4 +1,4 @@
-<?php
+<?php declare (strict_types=1);
 
 namespace OpenStack\ObjectStore\v1\Models;
 
@@ -6,7 +6,7 @@ use Psr\Http\Message\ResponseInterface;
 
 trait MetadataTrait
 {
-    public function parseMetadata(ResponseInterface $response)
+    public function parseMetadata(ResponseInterface $response): array
     {
         $metadata = [];
 

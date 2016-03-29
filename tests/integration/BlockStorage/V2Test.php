@@ -1,12 +1,12 @@
 <?php
 
-namespace OpenStack\Integration\BlockStorage;
+namespace OpenStack\integration\BlockStorage;
 
 use OpenStack\BlockStorage\v2\Models\Snapshot;
 use OpenStack\BlockStorage\v2\Models\Volume;
 use OpenStack\BlockStorage\v2\Models\VolumeType;
-use OpenStack\Integration\TestCase;
-use OpenStack\OpenStack;
+use OpenCloud\Integration\TestCase;
+use OpenStack\Integration\Utils;
 
 class V2Test extends TestCase
 {
@@ -18,7 +18,7 @@ class V2Test extends TestCase
     private function getService()
     {
         if (null === $this->service) {
-            $this->service = (new OpenStack())->blockStorageV2($this->getAuthOpts());
+            $this->service = Utils::getOpenStack()->blockStorageV2();
         }
 
         return $this->service;

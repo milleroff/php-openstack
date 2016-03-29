@@ -1,15 +1,15 @@
-<?php
+<?php declare (strict_types=1);
 namespace OpenStack\BlockStorage\v2\Models;
 
-use OpenStack\Common\Resource\AbstractResource;
-use OpenStack\Common\Resource\Creatable;
-use OpenStack\Common\Resource\Deletable;
-use OpenStack\Common\Resource\HasMetadata;
-use OpenStack\Common\Resource\HasWaiterTrait;
-use OpenStack\Common\Resource\Listable;
-use OpenStack\Common\Resource\Retrievable;
-use OpenStack\Common\Resource\Updateable;
-use OpenStack\Common\Transport\Utils;
+use OpenCloud\Common\Resource\AbstractResource;
+use OpenCloud\Common\Resource\Creatable;
+use OpenCloud\Common\Resource\Deletable;
+use OpenCloud\Common\Resource\HasMetadata;
+use OpenCloud\Common\Resource\HasWaiterTrait;
+use OpenCloud\Common\Resource\Listable;
+use OpenCloud\Common\Resource\Retrievable;
+use OpenCloud\Common\Resource\Updateable;
+use OpenCloud\Common\Transport\Utils;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -67,7 +67,7 @@ class Volume extends AbstractResource implements Creatable, Listable, Updateable
         'volume_type'       => 'volumeTypeName',
     ];
 
-    public function populateFromResponse(ResponseInterface $response)
+    public function populateFromResponse(ResponseInterface $response): self
     {
         parent::populateFromResponse($response);
         $this->metadata = $this->parseMetadata($response);
@@ -77,27 +77,24 @@ class Volume extends AbstractResource implements Creatable, Listable, Updateable
     public function retrieve()
     {
         $response = $this->executeWithState($this->api->getVolume());
-        return $this->populateFromResponse($response);
+        $this->populateFromResponse($response);
     }
 
     /**
      * @param array $userOptions {@see \OpenStack\BlockStorage\v2\Api::postVolumes}
      *
-     * @return self
+     * @return Creatable
      */
-    public function create(array $userOptions)
+    public function create(array $userOptions): Creatable
     {
         $response = $this->execute($this->api->postVolumes(), $userOptions);
         return $this->populateFromResponse($response);
     }
 
-    /**
-     * @return self
-     */
     public function update()
     {
         $response = $this->executeWithState($this->api->putVolume());
-        return $this->populateFromResponse($response);
+        $this->populateFromResponse($response);
     }
 
     public function delete()
@@ -105,7 +102,7 @@ class Volume extends AbstractResource implements Creatable, Listable, Updateable
         $this->executeWithState($this->api->deleteVolume());
     }
 
-    public function getMetadata()
+    public function getMetadata(): array
     {
         $response = $this->executeWithState($this->api->getVolumeMetadata());
         $this->metadata = $this->parseMetadata($response);
@@ -125,7 +122,7 @@ class Volume extends AbstractResource implements Creatable, Listable, Updateable
         $this->executeWithState($this->api->putVolumeMetadata());
     }
 
-    public function parseMetadata(ResponseInterface $response)
+    public function parseMetadata(ResponseInterface $response): array
     {
         $json = Utils::jsonDecode($response);
         return isset($json['metadata']) ? $json['metadata'] : [];

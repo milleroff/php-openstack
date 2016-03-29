@@ -1,13 +1,13 @@
-<?php
+<?php declare (strict_types=1);
 
 namespace OpenStack\Identity\v3\Models;
 
-use OpenStack\Common\Resource\AbstractResource;
-use OpenStack\Common\Resource\Creatable;
-use OpenStack\Common\Resource\Deletable;
-use OpenStack\Common\Resource\Listable;
-use OpenStack\Common\Resource\Retrievable;
-use OpenStack\Common\Resource\Updateable;
+use OpenCloud\Common\Resource\AbstractResource;
+use OpenCloud\Common\Resource\Creatable;
+use OpenCloud\Common\Resource\Deletable;
+use OpenCloud\Common\Resource\Listable;
+use OpenCloud\Common\Resource\Retrievable;
+use OpenCloud\Common\Resource\Updateable;
 
 /**
  * @property \OpenStack\Identity\v3\Api $api
@@ -42,7 +42,7 @@ class Policy extends AbstractResource implements Creatable, Listable, Retrievabl
      *
      * @param array $data {@see \OpenStack\Identity\v3\Api::postPolicies}
      */
-    public function create(array $data)
+    public function create(array $data): Creatable
     {
         $response = $this->execute($this->api->postPolicies(), $data);
         return $this->populateFromResponse($response);
@@ -54,7 +54,7 @@ class Policy extends AbstractResource implements Creatable, Listable, Retrievabl
     public function retrieve()
     {
         $response = $this->execute($this->api->getPolicy(), ['id' => $this->id]);
-        return $this->populateFromResponse($response);
+        $this->populateFromResponse($response);
     }
 
     /**
@@ -63,7 +63,7 @@ class Policy extends AbstractResource implements Creatable, Listable, Retrievabl
     public function update()
     {
         $response = $this->executeWithState($this->api->patchPolicy());
-        return $this->populateFromResponse($response);
+        $this->populateFromResponse($response);
     }
 
     /**

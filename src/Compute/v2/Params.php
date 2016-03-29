@@ -1,12 +1,12 @@
-<?php
+<?php declare (strict_types=1);
 
 namespace OpenStack\Compute\v2;
 
-use OpenStack\Common\Api\AbstractParams;
+use OpenCloud\Common\Api\AbstractParams;
 
 class Params extends AbstractParams
 {
-    public function urlId($type)
+    public function urlId(string $type): array
     {
         return array_merge(parent::id($type), [
             'required'   => true,
@@ -15,7 +15,7 @@ class Params extends AbstractParams
         ]);
     }
 
-    public function minDisk()
+    public function minDisk(): array
     {
         return [
             'type'        => self::INT_TYPE,
@@ -24,7 +24,7 @@ class Params extends AbstractParams
         ];
     }
 
-    public function minRam()
+    public function minRam(): array
     {
         return [
             'type'        => self::INT_TYPE,
@@ -33,7 +33,7 @@ class Params extends AbstractParams
         ];
     }
 
-    public function flavorName()
+    public function flavorName(): array
     {
         return [
             'location'    => self::QUERY,
@@ -53,7 +53,7 @@ class Params extends AbstractParams
         ];
     }
 
-    public function flavorServer()
+    public function flavorServer(): array
     {
         return [
             'location'    => self::QUERY,
@@ -61,7 +61,7 @@ class Params extends AbstractParams
         ];
     }
 
-    public function filterStatus($type)
+    public function filterStatus(string $type): array
     {
         return [
             'location'    => self::QUERY,
@@ -72,7 +72,7 @@ class Params extends AbstractParams
         ];
     }
 
-    public function flavorType()
+    public function flavorType(): array
     {
         return [
             'location'    => self::QUERY,
@@ -80,7 +80,7 @@ class Params extends AbstractParams
         ];
     }
 
-    public function key()
+    public function key(): array
     {
         return [
             'type'        => self::STRING_TYPE,
@@ -90,7 +90,7 @@ class Params extends AbstractParams
         ];
     }
 
-    public function ipv4()
+    public function ipv4(): array
     {
         return [
             'type'        => self::STRING_TYPE,
@@ -100,7 +100,7 @@ class Params extends AbstractParams
         ];
     }
 
-    public function ipv6()
+    public function ipv6(): array
     {
         return [
             'type'        => self::STRING_TYPE,
@@ -110,7 +110,7 @@ class Params extends AbstractParams
         ];
     }
 
-    public function imageId()
+    public function imageId(): array
     {
         return [
             'type'        => self::STRING_TYPE,
@@ -120,7 +120,7 @@ class Params extends AbstractParams
         ];
     }
 
-    public function flavorId()
+    public function flavorId(): array
     {
         return [
             'type'        => self::STRING_TYPE,
@@ -130,7 +130,7 @@ class Params extends AbstractParams
         ];
     }
 
-    public function metadata()
+    public function metadata(): array
     {
         return [
             'type'        => self::OBJECT_TYPE,
@@ -146,7 +146,7 @@ TYPEOTHER
         ];
     }
 
-    public function personality()
+    public function personality(): array
     {
         return [
             'type'        => self::ARRAY_TYPE,
@@ -172,7 +172,7 @@ EOL
         ];
     }
 
-    public function securityGroups()
+    public function securityGroups(): array
     {
         return [
             'type'        => self::ARRAY_TYPE,
@@ -185,7 +185,7 @@ EOL
         ];
     }
 
-    public function userData()
+    public function userData(): array
     {
         return [
             'type'        => self::STRING_TYPE,
@@ -194,7 +194,7 @@ EOL
         ];
     }
 
-    public function availabilityZone()
+    public function availabilityZone(): array
     {
         return [
             'type'        => self::STRING_TYPE,
@@ -203,7 +203,7 @@ EOL
         ];
     }
 
-    public function networks()
+    public function networks(): array
     {
         return [
             'type'        => self::ARRAY_TYPE,
@@ -240,7 +240,7 @@ EOL
         ];
     }
 
-    public function blockDeviceMapping()
+    public function blockDeviceMapping(): array
     {
         return [
             'type'        => self::ARRAY_TYPE,
@@ -253,10 +253,9 @@ EOL
             'items'       => [
                 'type'       => self::OBJECT_TYPE,
                 'properties' => [
-                    'configDrive'         => [
-                        'type'        => self::BOOL_TYPE,
-                        'sentAs'      => 'config_drive',
-                        'description' => 'Enables metadata injection in a server through a configuration drive. To enable a configuration drive, specify true. Otherwise, specify false.',
+                    'uuid'         => [
+                        'type'        => self::STRING_TYPE,
+                        'description' => 'The unique ID for the volume which the server is to be booted from.',
                     ],
                     'bootIndex'           => [
                         'type'        => self::INT_TYPE,
@@ -293,7 +292,7 @@ EOL
         ];
     }
 
-    public function filterHost()
+    public function filterHost(): array
     {
         return [
             'type'        => self::STRING_TYPE,
@@ -302,7 +301,7 @@ EOL
         ];
     }
 
-    public function filterName()
+    public function filterName(): array
     {
         return [
             'type'        => self::STRING_TYPE,
@@ -311,7 +310,7 @@ EOL
         ];
     }
 
-    public function filterFlavor()
+    public function filterFlavor(): array
     {
         return [
             'sentAs'      => 'flavor',
@@ -321,7 +320,7 @@ EOL
         ];
     }
 
-    public function filterImage()
+    public function filterImage(): array
     {
         return [
             'sentAs'      => 'image',
@@ -331,7 +330,7 @@ EOL
         ];
     }
 
-    public function password()
+    public function password(): array
     {
         return [
             'sentAs'      => 'adminPass',
@@ -342,7 +341,7 @@ EOL
         ];
     }
 
-    public function rebootType()
+    public function rebootType(): array
     {
         return [
             'type'        => self::STRING_TYPE,
@@ -352,7 +351,7 @@ EOL
         ];
     }
 
-    public function nullAction()
+    public function nullAction(): array
     {
         return [
             'type'     => self::NULL_TYPE,
@@ -361,12 +360,22 @@ EOL
         ];
     }
 
-    public function networkLabel()
+    public function networkLabel(): array
     {
         return [
             'type'     => self::STRING_TYPE,
             'location' => self::URL,
             'required' => true,
+        ];
+    }
+
+    public function keyName(): array
+    {
+        return [
+            'type'        => self::STRING_TYPE,
+            'required'    => false,
+            'sentAs'      => 'key_name',
+            'description' => 'The key name',
         ];
     }
 }

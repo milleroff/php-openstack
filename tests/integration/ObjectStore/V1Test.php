@@ -1,10 +1,9 @@
 <?php
 
-namespace OpenStack\Integration\ObjectStore;
+namespace OpenStack\integration\ObjectStore;
 
-use OpenStack\Integration\TestCase;
+use OpenCloud\Integration\TestCase;
 use OpenStack\Integration\Utils;
-use OpenStack\OpenStack;
 use Psr\Http\Message\StreamInterface;
 
 class V1Test extends TestCase
@@ -14,10 +13,10 @@ class V1Test extends TestCase
     /**
      * @return \OpenStack\ObjectStore\v1\Service
      */
-    private function getService()
+    protected function getService()
     {
         if (null === $this->service) {
-            $this->service = (new OpenStack())->objectStoreV1(Utils::getAuthOpts());
+            $this->service = Utils::getOpenStack()->objectStoreV1();
         }
 
         return $this->service;
@@ -57,7 +56,7 @@ class V1Test extends TestCase
         $this->logStep('Getting account metadata');
         /** @var array $metadata */
         require_once $this->sampleFile($replacements, 'account/get_metadata.php');
-        $this->assertEquals([
+        $this->assertArraySubset([
             'Foo' => $replacements['{val_1}'],
             'Bar' => $replacements['{val_2}'],
         ], $metadata);

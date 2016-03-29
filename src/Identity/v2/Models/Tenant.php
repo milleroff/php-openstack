@@ -1,8 +1,8 @@
-<?php
+<?php declare (strict_types=1);
 
 namespace OpenStack\Identity\v2\Models;
 
-use OpenStack\Common\Resource\AbstractResource;
+use OpenCloud\Common\Resource\AbstractResource;
 
 /**
  * Represents an Identity v2 Tenant.

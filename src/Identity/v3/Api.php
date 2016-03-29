@@ -1,8 +1,8 @@
-<?php
+<?php declare (strict_types=1);
 
 namespace OpenStack\Identity\v3;
 
-use OpenStack\Common\Api\AbstractApi;
+use OpenCloud\Common\Api\AbstractApi;
 
 class Api extends AbstractApi
 {
@@ -11,7 +11,7 @@ class Api extends AbstractApi
         $this->params = new Params();
     }
 
-    public function postTokens()
+    public function postTokens(): array
     {
         return [
             'method' => 'POST',
@@ -25,7 +25,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function getTokens()
+    public function getTokens(): array
     {
         return [
             'method' => 'GET',
@@ -34,7 +34,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function headTokens()
+    public function headTokens(): array
     {
         return [
             'method' => 'HEAD',
@@ -43,7 +43,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function deleteTokens()
+    public function deleteTokens(): array
     {
         return [
             'method' => 'DELETE',
@@ -52,7 +52,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function postServices()
+    public function postServices(): array
     {
         return [
             'method'  => 'POST',
@@ -65,7 +65,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function getServices()
+    public function getServices(): array
     {
         return [
             'method' => 'GET',
@@ -74,7 +74,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function getService()
+    public function getService(): array
     {
         return [
             'method' => 'GET',
@@ -83,7 +83,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function patchService()
+    public function patchService(): array
     {
         return [
             'method'  => 'PATCH',
@@ -98,7 +98,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function deleteService()
+    public function deleteService(): array
     {
         return [
             'method' => 'DELETE',
@@ -107,7 +107,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function postEndpoints()
+    public function postEndpoints(): array
     {
         return [
             'method'  => 'POST',
@@ -123,7 +123,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function getEndpoints()
+    public function getEndpoints(): array
     {
         return [
             'method' => 'GET',
@@ -135,7 +135,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function patchEndpoint()
+    public function patchEndpoint(): array
     {
         return [
             'method'  => 'PATCH',
@@ -152,7 +152,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function deleteEndpoint()
+    public function deleteEndpoint(): array
     {
         return [
             'method' => 'DELETE',
@@ -161,7 +161,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function postDomains()
+    public function postDomains(): array
     {
         return [
             'method'  => 'POST',
@@ -175,7 +175,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function getDomains()
+    public function getDomains(): array
     {
         return [
             'method' => 'GET',
@@ -187,7 +187,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function getDomain()
+    public function getDomain(): array
     {
         return [
             'method' => 'GET',
@@ -196,7 +196,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function patchDomain()
+    public function patchDomain(): array
     {
         return [
             'method'  => 'PATCH',
@@ -211,7 +211,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function deleteDomain()
+    public function deleteDomain(): array
     {
         return [
             'method' => 'DELETE',
@@ -220,7 +220,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function getUserRoles()
+    public function getUserRoles(): array
     {
         return [
             'method' => 'GET',
@@ -232,7 +232,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function putUserRoles()
+    public function putUserRoles(): array
     {
         return [
             'method' => 'PUT',
@@ -245,7 +245,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function headUserRole()
+    public function headUserRole(): array
     {
         return [
             'method' => 'HEAD',
@@ -258,7 +258,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function deleteUserRole()
+    public function deleteUserRole(): array
     {
         return [
             'method' => 'DELETE',
@@ -271,7 +271,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function getGroupRoles()
+    public function getGroupRoles(): array
     {
         return [
             'method' => 'GET',
@@ -283,7 +283,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function putGroupRole()
+    public function putGroupRole(): array
     {
         return [
             'method' => 'PUT',
@@ -296,7 +296,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function headGroupRole()
+    public function headGroupRole(): array
     {
         return [
             'method' => 'HEAD',
@@ -309,7 +309,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function deleteGroupRole()
+    public function deleteGroupRole(): array
     {
         return [
             'method' => 'DELETE',
@@ -322,7 +322,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function postProjects()
+    public function postProjects(): array
     {
         return [
             'method'  => 'POST',
@@ -338,7 +338,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function getProjects()
+    public function getProjects(): array
     {
         return [
             'method' => 'GET',
@@ -351,7 +351,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function getProject()
+    public function getProject(): array
     {
         return [
             'method' => 'GET',
@@ -360,7 +360,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function patchProject()
+    public function patchProject(): array
     {
         return [
             'method'  => 'PATCH',
@@ -377,7 +377,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function deleteProject()
+    public function deleteProject(): array
     {
         return [
             'method' => 'DELETE',
@@ -386,7 +386,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function getProjectUserRoles()
+    public function getProjectUserRoles(): array
     {
         return [
             'method' => 'GET',
@@ -398,7 +398,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function putProjectUserRole()
+    public function putProjectUserRole(): array
     {
         return [
             'method' => 'PUT',
@@ -411,7 +411,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function headProjectUserRole()
+    public function headProjectUserRole(): array
     {
         return [
             'method' => 'HEAD',
@@ -424,7 +424,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function deleteProjectUserRole()
+    public function deleteProjectUserRole(): array
     {
         return [
             'method' => 'DELETE',
@@ -437,7 +437,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function getProjectGroupRoles()
+    public function getProjectGroupRoles(): array
     {
         return [
             'method' => 'GET',
@@ -449,7 +449,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function putProjectGroupRole()
+    public function putProjectGroupRole(): array
     {
         return [
             'method' => 'PUT',
@@ -462,7 +462,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function headProjectGroupRole()
+    public function headProjectGroupRole(): array
     {
         return [
             'method' => 'HEAD',
@@ -475,7 +475,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function deleteProjectGroupRole()
+    public function deleteProjectGroupRole(): array
     {
         return [
             'method' => 'DELETE',
@@ -488,7 +488,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function postUsers()
+    public function postUsers(): array
     {
         return [
             'method'  => 'POST',
@@ -506,7 +506,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function getUsers()
+    public function getUsers(): array
     {
         return [
             'method' => 'GET',
@@ -519,7 +519,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function getUser()
+    public function getUser(): array
     {
         return [
             'method' => 'GET',
@@ -528,7 +528,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function patchUser()
+    public function patchUser(): array
     {
         return [
             'method'  => 'PATCH',
@@ -545,7 +545,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function deleteUser()
+    public function deleteUser(): array
     {
         return [
             'method' => 'DELETE',
@@ -554,7 +554,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function getUserGroups()
+    public function getUserGroups(): array
     {
         return [
             'method' => 'GET',
@@ -563,7 +563,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function getUserProjects()
+    public function getUserProjects(): array
     {
         return [
             'method' => 'GET',
@@ -572,7 +572,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function postGroups()
+    public function postGroups(): array
     {
         return [
             'method'  => 'POST',
@@ -586,7 +586,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function getGroups()
+    public function getGroups(): array
     {
         return [
             'method' => 'GET',
@@ -595,7 +595,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function getGroup()
+    public function getGroup(): array
     {
         return [
             'method' => 'GET',
@@ -604,7 +604,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function patchGroup()
+    public function patchGroup(): array
     {
         return [
             'method'  => 'PATCH',
@@ -618,7 +618,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function deleteGroup()
+    public function deleteGroup(): array
     {
         return [
             'method' => 'DELETE',
@@ -627,7 +627,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function getGroupUsers()
+    public function getGroupUsers(): array
     {
         return [
             'method' => 'GET',
@@ -636,7 +636,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function putGroupUser()
+    public function putGroupUser(): array
     {
         return [
             'method' => 'PUT',
@@ -648,7 +648,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function deleteGroupUser()
+    public function deleteGroupUser(): array
     {
         return [
             'method' => 'DELETE',
@@ -660,7 +660,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function headGroupUser()
+    public function headGroupUser(): array
     {
         return [
             'method' => 'HEAD',
@@ -672,7 +672,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function postCredentials()
+    public function postCredentials(): array
     {
         return [
             'method' => 'POST',
@@ -686,7 +686,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function getCredentials()
+    public function getCredentials(): array
     {
         return [
             'method' => 'GET',
@@ -695,7 +695,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function getCredential()
+    public function getCredential(): array
     {
         return [
             'method' => 'GET',
@@ -704,7 +704,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function patchCredential()
+    public function patchCredential(): array
     {
         return [
             'method' => 'PATCH',
@@ -713,7 +713,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function deleteCredential()
+    public function deleteCredential(): array
     {
         return [
             'method' => 'DELETE',
@@ -722,7 +722,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function postRoles()
+    public function postRoles(): array
     {
         return [
             'method'  => 'POST',
@@ -732,7 +732,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function getRoles()
+    public function getRoles(): array
     {
         return [
             'method' => 'GET',
@@ -741,7 +741,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function deleteRole()
+    public function deleteRole(): array
     {
         return [
             'method' => 'DELETE',
@@ -750,7 +750,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function getRoleAssignments()
+    public function getRoleAssignments(): array
     {
         return [
             'method' => 'GET',
@@ -766,7 +766,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function postPolicies()
+    public function postPolicies(): array
     {
         return [
             'method' => 'POST',
@@ -780,7 +780,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function getPolicies()
+    public function getPolicies(): array
     {
         return [
             'method' => 'GET',
@@ -789,7 +789,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function getPolicy()
+    public function getPolicy(): array
     {
         return [
             'method' => 'GET',
@@ -798,7 +798,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function patchPolicy()
+    public function patchPolicy(): array
     {
         return [
             'method' => 'PATCH',
@@ -813,7 +813,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function deletePolicy()
+    public function deletePolicy(): array
     {
         return [
             'method' => 'DELETE',

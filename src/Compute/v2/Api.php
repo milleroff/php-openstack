@@ -1,8 +1,8 @@
-<?php
+<?php declare (strict_types=1);
 
 namespace OpenStack\Compute\v2;
 
-use OpenStack\Common\Api\AbstractApi;
+use OpenCloud\Common\Api\AbstractApi;
 
 /**
  * A representation of the Compute (Nova) v2 REST API.
@@ -17,7 +17,7 @@ class Api extends AbstractApi
         $this->params = new Params();
     }
 
-    public function getFlavors()
+    public function getFlavors(): array
     {
         return [
             'method' => 'GET',
@@ -31,14 +31,14 @@ class Api extends AbstractApi
         ];
     }
 
-    public function getFlavorsDetail()
+    public function getFlavorsDetail(): array
     {
         $op = $this->getAll();
         $op['path'] .= '/detail';
         return $op;
     }
 
-    public function getFlavor()
+    public function getFlavor(): array
     {
         return [
             'method' => 'GET',
@@ -47,7 +47,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function getImages()
+    public function getImages(): array
     {
         return [
             'method' => 'GET',
@@ -64,14 +64,14 @@ class Api extends AbstractApi
         ];
     }
 
-    public function getImagesDetail()
+    public function getImagesDetail(): array
     {
         $op = $this->getAll();
         $op['path'] .= '/detail';
         return $op;
     }
 
-    public function getImage()
+    public function getImage(): array
     {
         return [
             'method' => 'GET',
@@ -80,7 +80,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function deleteImage()
+    public function deleteImage(): array
     {
         return [
             'method' => 'DELETE',
@@ -89,7 +89,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function getImageMetadata()
+    public function getImageMetadata(): array
     {
         return [
             'method' => 'GET',
@@ -98,7 +98,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function putImageMetadata()
+    public function putImageMetadata(): array
     {
         return [
             'method' => 'PUT',
@@ -110,7 +110,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function postImageMetadata()
+    public function postImageMetadata(): array
     {
         return [
             'method' => 'POST',
@@ -122,7 +122,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function getImageMetadataKey()
+    public function getImageMetadataKey(): array
     {
         return [
             'method' => 'GET',
@@ -134,7 +134,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function deleteImageMetadataKey()
+    public function deleteImageMetadataKey(): array
     {
         return [
             'method' => 'DELETE',
@@ -146,7 +146,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function postServer()
+    public function postServer(): array
     {
         return [
             'path'    => 'servers',
@@ -163,11 +163,12 @@ class Api extends AbstractApi
                 'availabilityZone'   => $this->params->availabilityZone(),
                 'networks'           => $this->params->networks(),
                 'blockDeviceMapping' => $this->params->blockDeviceMapping(),
+                'keyName'            => $this->params->keyName()
             ]
         ];
     }
 
-    public function getServers()
+    public function getServers(): array
     {
         return [
             'method' => 'GET',
@@ -185,14 +186,14 @@ class Api extends AbstractApi
         ];
     }
 
-    public function getServersDetail()
+    public function getServersDetail(): array
     {
         $definition = $this->getServers();
         $definition['path'] .= '/detail';
         return $definition;
     }
 
-    public function getServer()
+    public function getServer(): array
     {
         return [
             'method' => 'GET',
@@ -201,7 +202,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function putServer()
+    public function putServer(): array
     {
         return [
             'method'  => 'PUT',
@@ -216,7 +217,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function deleteServer()
+    public function deleteServer(): array
     {
         return [
             'method' => 'DELETE',
@@ -225,7 +226,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function changeServerPassword()
+    public function changeServerPassword(): array
     {
         return [
             'method'  => 'POST',
@@ -238,7 +239,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function rebootServer()
+    public function rebootServer(): array
     {
         return [
             'method'  => 'POST',
@@ -251,7 +252,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function rebuildServer()
+    public function rebuildServer(): array
     {
         return [
             'method'  => 'POST',
@@ -270,7 +271,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function resizeServer()
+    public function resizeServer(): array
     {
         return [
             'method'  => 'POST',
@@ -283,7 +284,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function confirmServerResize()
+    public function confirmServerResize(): array
     {
         return [
             'method' => 'POST',
@@ -295,7 +296,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function revertServerResize()
+    public function revertServerResize(): array
     {
         return [
             'method' => 'POST',
@@ -307,7 +308,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function createServerImage()
+    public function createServerImage(): array
     {
         return [
             'method'  => 'POST',
@@ -321,7 +322,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function getAddresses()
+    public function getAddresses(): array
     {
         return [
             'method' => 'GET',
@@ -330,7 +331,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function getAddressesByNetwork()
+    public function getAddressesByNetwork(): array
     {
         return [
             'method' => 'GET',
@@ -342,7 +343,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function getServerMetadata()
+    public function getServerMetadata(): array
     {
         return [
             'method' => 'GET',
@@ -351,7 +352,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function putServerMetadata()
+    public function putServerMetadata(): array
     {
         return [
             'method' => 'PUT',
@@ -363,7 +364,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function postServerMetadata()
+    public function postServerMetadata(): array
     {
         return [
             'method' => 'POST',
@@ -375,7 +376,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function getServerMetadataKey()
+    public function getServerMetadataKey(): array
     {
         return [
             'method' => 'GET',
@@ -387,7 +388,7 @@ class Api extends AbstractApi
         ];
     }
 
-    public function deleteServerMetadataKey()
+    public function deleteServerMetadataKey(): array
     {
         return [
             'method' => 'DELETE',
