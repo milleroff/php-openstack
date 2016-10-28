@@ -1,17 +1,19 @@
-<?php declare (strict_types=1);
+<?php declare(strict_types=1);
 
 namespace OpenStack\Compute\v2\Models;
 
-use OpenCloud\Common\Resource\AbstractResource;
-use OpenCloud\Common\Resource\Listable;
-use OpenCloud\Common\Resource\Retrievable;
+use OpenStack\Common\Resource\Creatable;
+use OpenStack\Common\Resource\Deletable;
+use OpenStack\Common\Resource\OperatorResource;
+use OpenStack\Common\Resource\Listable;
+use OpenStack\Common\Resource\Retrievable;
 
 /**
  * Represents a Compute v2 Flavor.
  *
  * @property \OpenStack\Compute\v2\Api $api
  */
-class Flavor extends AbstractResource implements Listable, Retrievable
+class Flavor extends OperatorResource implements Listable, Retrievable, Creatable, Deletable
 {
     /** @var int */
     public $disk;
@@ -24,6 +26,9 @@ class Flavor extends AbstractResource implements Listable, Retrievable
 
     /** @var int */
     public $ram;
+
+    /** @var int */
+    public $swap;
 
     /** @var int */
     public $vcpus;
@@ -41,5 +46,22 @@ class Flavor extends AbstractResource implements Listable, Retrievable
     {
         $response = $this->execute($this->api->getFlavor(), ['id' => (string) $this->id]);
         $this->populateFromResponse($response);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function create(array $userOptions): Creatable
+    {
+        $response = $this->execute($this->api->postFlavors(), $userOptions);
+        return $this->populateFromResponse($response);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function delete()
+    {
+        $this->execute($this->api->deleteFlavor(), ['id' => (string) $this->id]);
     }
 }

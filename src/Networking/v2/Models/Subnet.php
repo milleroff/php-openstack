@@ -1,19 +1,19 @@
-<?php declare (strict_types=1);
+<?php declare(strict_types=1);
 
 namespace OpenStack\Networking\v2\Models;
 
-use OpenCloud\Common\Resource\AbstractResource;
-use OpenCloud\Common\Resource\Listable;
-use OpenCloud\Common\Resource\Creatable;
-use OpenCloud\Common\Resource\Deletable;
-use OpenCloud\Common\Resource\Retrievable;
+use OpenStack\Common\Resource\OperatorResource;
+use OpenStack\Common\Resource\Listable;
+use OpenStack\Common\Resource\Creatable;
+use OpenStack\Common\Resource\Deletable;
+use OpenStack\Common\Resource\Retrievable;
 
 /**
  * Represents a Networking v2 Network.
  *
  * @property \OpenStack\Networking\v2\Api $api
  */
-class Subnet extends AbstractResource implements Listable, Retrievable, Creatable, Deletable
+class Subnet extends OperatorResource implements Listable, Retrievable, Creatable, Deletable
 {
     /** @var string */
     public $id;

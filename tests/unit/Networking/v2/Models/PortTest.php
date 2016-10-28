@@ -5,7 +5,7 @@ namespace OpenStack\Test\Subneting\v2\Models;
 use GuzzleHttp\Psr7\Response;
 use OpenStack\Networking\v2\Api;
 use OpenStack\Networking\v2\Models\Port;
-use OpenCloud\Test\TestCase;
+use OpenStack\Test\TestCase;
 
 class PortTest extends TestCase
 {
@@ -45,6 +45,13 @@ class PortTest extends TestCase
         $this->port->adminStateUp = false;
         $this->port->name = 'newName';
         $this->port->update();
+    }
+
+    public function test_it_retrieves()
+    {
+        $this->setupMock('GET', 'v2.0/ports/' . self::PORT_ID, null, [], new Response(204));
+
+        $this->port->retrieve();
     }
 
     public function test_it_deletes()

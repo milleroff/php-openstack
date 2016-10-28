@@ -1,9 +1,9 @@
-<?php declare (strict_types=1);
+<?php declare(strict_types=1);
 
 namespace OpenStack\Identity\v2\Models;
 
-use OpenCloud\Common\Resource\AbstractResource;
-use OpenCloud\Common\Transport\Utils;
+use OpenStack\Common\Resource\OperatorResource;
+use OpenStack\Common\Transport\Utils;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -11,7 +11,7 @@ use Psr\Http\Message\ResponseInterface;
  *
  * @package OpenStack\Identity\v2\Models
  */
-class Catalog extends AbstractResource implements \OpenCloud\Common\Auth\Catalog
+class Catalog extends OperatorResource implements \OpenStack\Common\Auth\Catalog
 {
     const DEFAULT_URL_TYPE = 'publicURL';
 

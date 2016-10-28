@@ -1,16 +1,16 @@
-<?php declare (strict_types=1);
+<?php declare(strict_types=1);
 
 namespace OpenStack\ObjectStore\v1\Models;
 
-use OpenCloud\Common\Resource\AbstractResource;
-use OpenCloud\Common\Resource\HasMetadata;
-use OpenCloud\Common\Resource\Retrievable;
+use OpenStack\Common\Resource\OperatorResource;
+use OpenStack\Common\Resource\HasMetadata;
+use OpenStack\Common\Resource\Retrievable;
 use Psr\Http\Message\ResponseInterface;
 
 /**
  * @property \OpenStack\ObjectStore\v1\Api $api
  */
-class Account extends AbstractResource implements Retrievable, HasMetadata
+class Account extends OperatorResource implements Retrievable, HasMetadata
 {
     use MetadataTrait;
 

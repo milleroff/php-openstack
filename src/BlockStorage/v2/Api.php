@@ -1,8 +1,8 @@
-<?php declare (strict_types=1);
+<?php declare(strict_types=1);
 
 namespace OpenStack\BlockStorage\v2;
 
-use OpenCloud\Common\Api\AbstractApi;
+use OpenStack\Common\Api\AbstractApi;
 
 class Api extends AbstractApi
 {

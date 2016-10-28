@@ -1,11 +1,11 @@
-<?php declare (strict_types=1);
+<?php declare(strict_types=1);
 
 namespace OpenStack\Identity\v3\Models;
 
-use OpenCloud\Common\Resource\AbstractResource;
-use OpenCloud\Common\Resource\Listable;
+use OpenStack\Common\Resource\OperatorResource;
+use OpenStack\Common\Resource\Listable;
 
-class Assignment extends AbstractResource implements Listable
+class Assignment extends OperatorResource implements Listable
 {
     /** @var Role */
     public $role;

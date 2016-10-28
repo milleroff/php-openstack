@@ -1,19 +1,19 @@
-<?php declare (strict_types=1);
+<?php declare(strict_types=1);
 
 namespace OpenStack\Identity\v3\Models;
 
-use OpenCloud\Common\Error\BadResponseError;
-use OpenCloud\Common\Resource\AbstractResource;
-use OpenCloud\Common\Resource\Creatable;
-use OpenCloud\Common\Resource\Deletable;
-use OpenCloud\Common\Resource\Listable;
-use OpenCloud\Common\Resource\Retrievable;
-use OpenCloud\Common\Resource\Updateable;
+use OpenStack\Common\Error\BadResponseError;
+use OpenStack\Common\Resource\OperatorResource;
+use OpenStack\Common\Resource\Creatable;
+use OpenStack\Common\Resource\Deletable;
+use OpenStack\Common\Resource\Listable;
+use OpenStack\Common\Resource\Retrievable;
+use OpenStack\Common\Resource\Updateable;
 
 /**
  * @property \OpenStack\Identity\v3\Api $api
  */
-class Domain extends AbstractResource implements Creatable, Listable, Retrievable, Updateable, Deletable
+class Domain extends OperatorResource implements Creatable, Listable, Retrievable, Updateable, Deletable
 {
     /** @var string */
     public $id;

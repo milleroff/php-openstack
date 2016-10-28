@@ -1,11 +1,11 @@
-<?php declare (strict_types=1);
+<?php declare(strict_types=1);
 
 namespace OpenStack\BlockStorage\v2;
 
 use OpenStack\BlockStorage\v2\Models\Snapshot;
 use OpenStack\BlockStorage\v2\Models\Volume;
 use OpenStack\BlockStorage\v2\Models\VolumeType;
-use OpenCloud\Common\Service\AbstractService;
+use OpenStack\Common\Service\AbstractService;
 
 /**
  * @property \OpenStack\BlockStorage\v2\Api $api
@@ -15,7 +15,7 @@ class Service extends AbstractService
     /**
      * Provisions a new bootable volume, based either on an existing volume, image or snapshot.
      * You must have enough volume storage quota remaining to create a volume of size requested.
-     * 
+     *
      * @param array $userOptions {@see Api::postVolumes}
      *
      * @return Volume
@@ -27,7 +27,7 @@ class Service extends AbstractService
 
     /**
      * Lists all available volumes.
-     * 
+     *
      * @param bool  $detail      If set to TRUE, more information will be returned.
      * @param array $userOptions {@see Api::getVolumes}
      *

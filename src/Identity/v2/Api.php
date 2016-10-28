@@ -1,8 +1,8 @@
-<?php declare (strict_types=1);
+<?php declare(strict_types=1);
 
 namespace OpenStack\Identity\v2;
 
-use OpenCloud\Common\Api\ApiInterface;
+use OpenStack\Common\Api\ApiInterface;
 
 /**
  * Represents the OpenStack Identity v2 API.

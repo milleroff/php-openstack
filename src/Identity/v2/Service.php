@@ -1,10 +1,10 @@
-<?php declare (strict_types=1);
+<?php declare(strict_types=1);
 
 namespace OpenStack\Identity\v2;
 
 use GuzzleHttp\ClientInterface;
-use OpenCloud\Common\Auth\IdentityService;
-use OpenCloud\Common\Service\AbstractService;
+use OpenStack\Common\Auth\IdentityService;
+use OpenStack\Common\Service\AbstractService;
 use OpenStack\Identity\v2\Models\Catalog;
 use OpenStack\Identity\v2\Models\Token;
 

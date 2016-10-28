@@ -1,10 +1,12 @@
 <?php
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 
 $rootDir = dirname(dirname(__DIR__));
 
 require_once $rootDir . '/vendor/autoload.php';
 
-$basePath  = $rootDir . '/samples';
+$sampleDir = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'samples';
 
-$runner = new \OpenCloud\Integration\Runner($basePath, 'OpenStack\\Integration');
+$runner = new \OpenStack\Integration\Runner($sampleDir, __DIR__, 'OpenStack\\Integration');
 $runner->runServices();

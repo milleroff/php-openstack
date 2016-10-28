@@ -1,8 +1,8 @@
-<?php declare (strict_types=1);
+<?php declare(strict_types=1);
 
 namespace OpenStack\Images\v2;
 
-use OpenCloud\Common\Service\AbstractService;
+use OpenStack\Common\Service\AbstractService;
 use OpenStack\Images\v2\Models\Image;
 
 /**

@@ -1,8 +1,8 @@
-<?php declare (strict_types=1);
+<?php declare(strict_types=1);
 
 namespace OpenStack\Images\v2;
 
-class JsonPatch extends \OpenCloud\Common\JsonSchema\JsonPatch
+class JsonPatch extends \OpenStack\Common\JsonSchema\JsonPatch
 {
     public function disableRestrictedPropRemovals(array $diff, array $restrictedProps): array
     {

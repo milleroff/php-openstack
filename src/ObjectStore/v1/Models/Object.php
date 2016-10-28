@@ -1,20 +1,20 @@
-<?php declare (strict_types=1);
+<?php declare(strict_types=1);
 
 namespace OpenStack\ObjectStore\v1\Models;
 
 use GuzzleHttp\Psr7\Uri;
-use OpenCloud\Common\Transport\Utils;
+use OpenStack\Common\Transport\Utils;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
-use OpenCloud\Common\Resource\AbstractResource;
-use OpenCloud\Common\Resource\Creatable;
-use OpenCloud\Common\Resource\Deletable;
-use OpenCloud\Common\Resource\HasMetadata;
+use OpenStack\Common\Resource\OperatorResource;
+use OpenStack\Common\Resource\Creatable;
+use OpenStack\Common\Resource\Deletable;
+use OpenStack\Common\Resource\HasMetadata;
 
 /**
  * @property \OpenStack\ObjectStore\v1\Api $api
  */
-class Object extends AbstractResource implements Creatable, Deletable, HasMetadata
+class Object extends OperatorResource implements Creatable, Deletable, HasMetadata
 {
     use MetadataTrait;
 
@@ -101,6 +101,7 @@ class Object extends AbstractResource implements Creatable, Deletable, HasMetada
     public function download(): StreamInterface
     {
         $response = $this->executeWithState($this->api->getObject());
+        $this->populateFromResponse($response);
         return $response->getBody();
     }
 

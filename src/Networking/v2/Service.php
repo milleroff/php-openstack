@@ -1,8 +1,8 @@
-<?php declare (strict_types=1);
+<?php declare(strict_types=1);
 
 namespace OpenStack\Networking\v2;
 
-use OpenCloud\Common\Service\AbstractService;
+use OpenStack\Common\Service\AbstractService;
 use OpenStack\Networking\v2\Models\Network;
 use OpenStack\Networking\v2\Models\Port;
 use OpenStack\Networking\v2\Models\Subnet;

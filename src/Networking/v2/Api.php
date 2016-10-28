@@ -1,8 +1,8 @@
-<?php declare (strict_types=1);
+<?php declare(strict_types=1);
 
 namespace OpenStack\Networking\v2;
 
-use OpenCloud\Common\Api\AbstractApi;
+use OpenStack\Common\Api\AbstractApi;
 
 /**
  * A representation of the Neutron (Nova) v2 REST API.
@@ -33,7 +33,11 @@ class Api extends AbstractApi
         return [
             'method' => 'GET',
             'path'   => $this->pathPrefix . '/networks',
-            'params' => [],
+            'params' => [
+                'name'     => $this->params->queryName(),
+                'tenantId' => $this->params->queryTenantId(),
+                'status'   => $this->params->queryStatus(),
+            ],
         ];
     }
 
@@ -44,9 +48,11 @@ class Api extends AbstractApi
             'method'  => 'POST',
             'jsonKey' => 'network',
             'params'  => [
-                'name'         => $this->params->name('network'),
-                'shared'       => $this->params->shared(),
-                'adminStateUp' => $this->params->adminStateUp(),
+                'name'             => $this->params->name('network'),
+                'shared'           => $this->params->shared(),
+                'adminStateUp'     => $this->params->adminStateUp(),
+                'routerAccessible' => $this->params->routerAccessibleJson(),
+                'tenantId'         => $this->params->tenantId(),
             ],
         ];
     }
@@ -112,7 +118,10 @@ class Api extends AbstractApi
         return [
             'method' => 'GET',
             'path'   => $this->pathPrefix . '/subnets',
-            'params' => [],
+            'params' => [
+                'name' => $this->params->queryName(),
+                'tenantId' => $this->params->queryTenantId()
+            ],
         ];
     }
 

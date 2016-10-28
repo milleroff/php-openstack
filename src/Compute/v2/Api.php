@@ -1,8 +1,8 @@
-<?php declare (strict_types=1);
+<?php declare(strict_types=1);
 
 namespace OpenStack\Compute\v2;
 
-use OpenCloud\Common\Api\AbstractApi;
+use OpenStack\Common\Api\AbstractApi;
 
 /**
  * A representation of the Compute (Nova) v2 REST API.
@@ -15,6 +15,15 @@ class Api extends AbstractApi
     public function __construct()
     {
         $this->params = new Params();
+    }
+
+    public function getLimits(): array
+    {
+        return [
+            'method' => 'GET',
+            'path' => 'limits',
+            'params' => []
+        ];
     }
 
     public function getFlavors(): array
@@ -44,6 +53,34 @@ class Api extends AbstractApi
             'method' => 'GET',
             'path'   => 'flavors/{id}',
             'params' => ['id' => $this->params->urlId('flavor')]
+        ];
+    }
+
+    public function postFlavors(): array
+    {
+        return [
+            'method' => 'POST',
+            'path' => 'flavors',
+            'jsonKey' => 'flavor',
+            'params' => [
+                'id'    => $this->notRequired($this->params->id('flavor')),
+                'name'  => $this->isRequired($this->params->name('flavor')),
+                'ram'   => $this->params->flavorRam(),
+                'vcpus' => $this->params->flavorVcpus(),
+                'swap'  => $this->params->flavorSwap(),
+                'disk'  => $this->params->flavorDisk(),
+            ]
+        ];
+    }
+
+    public function deleteFlavor(): array
+    {
+        return [
+            'method' => 'DELETE',
+            'path'   => 'flavors/{id}',
+            'params' => [
+                'id' => $this->params->idPath()
+            ]
         ];
     }
 
@@ -252,6 +289,30 @@ class Api extends AbstractApi
         ];
     }
 
+    public function startServer() : array
+    {
+        return [
+            'method'  => 'POST',
+            'path'    => 'servers/{id}/action',
+            'params'  => [
+                'id'   => $this->params->urlId('server'),
+                'os-start' => $this->params->nullAction()
+            ],
+        ];
+    }
+
+    public function stopServer() : array
+    {
+        return [
+            'method'  => 'POST',
+            'path'    => 'servers/{id}/action',
+            'params'  => [
+                'id'   => $this->params->urlId('server'),
+                'os-stop' => $this->params->nullAction()
+            ],
+        ];
+    }
+
     public function rebuildServer(): array
     {
         return [
@@ -319,6 +380,58 @@ class Api extends AbstractApi
                 'metadata' => $this->notRequired($this->params->metadata()),
                 'name'     => $this->isRequired($this->params->name('server')),
             ],
+        ];
+    }
+
+    public function getVncConsole(): array
+    {
+        return [
+            'method' => 'POST',
+            'path' => 'servers/{id}/action',
+            'jsonKey' => 'os-getVNCConsole',
+            'params' => [
+                'id' => $this->params->urlId('server'),
+                'type' => $this->params->consoleType()
+            ]
+        ];
+    }
+
+    public function getSpiceConsole(): array
+    {
+        return [
+            'method' => 'POST',
+            'path' => 'servers/{id}/action',
+            'jsonKey' => 'os-getSPICEConsole',
+            'params' => [
+                'id' => $this->params->urlId('server'),
+                'type' => $this->params->consoleType()
+            ]
+        ];
+    }
+
+    public function getSerialConsole(): array
+    {
+        return [
+            'method' => 'POST',
+            'path' => 'servers/{id}/action',
+            'jsonKey' => 'os-getSerialConsole',
+            'params' => [
+                'id' => $this->params->urlId('server'),
+                'type' => $this->params->consoleType()
+            ]
+        ];
+    }
+
+    public function getRDPConsole(): array
+    {
+        return [
+            'method' => 'POST',
+            'path' => 'servers/{id}/action',
+            'jsonKey' => 'os-getRDPConsole',
+            'params' => [
+                'id' => $this->params->urlId('server'),
+                'type' => $this->params->consoleType()
+            ]
         ];
     }
 
@@ -396,6 +509,135 @@ class Api extends AbstractApi
             'params' => [
                 'id'  => $this->params->urlId('server'),
                 'key' => $this->params->key(),
+            ]
+        ];
+    }
+
+    public function getKeypair(): array
+    {
+        return [
+            'method' => 'GET',
+            'path'   => 'os-keypairs/{name}',
+            'params' => [
+                'name' => $this->isRequired($this->params->keypairName())
+            ],
+        ];
+    }
+
+    public function getKeypairs(): array
+    {
+        return [
+            'method' => 'GET',
+            'path'   => 'os-keypairs',
+            'params' => [],
+        ];
+    }
+
+    public function postKeypair(): array
+    {
+        return [
+            'method' => 'POST',
+            'path'   => 'os-keypairs',
+            'jsonKey' => 'keypair',
+            'params' => [
+                'name'  => $this->isRequired($this->params->name('keypair')),
+                'publicKey' => $this->params->keypairPublicKey(),
+            ]
+        ];
+    }
+
+    public function deleteKeypair(): array
+    {
+        return [
+            'method' => 'DELETE',
+            'path'   => 'os-keypairs/{name}',
+            'params' => [
+                'name' => $this->isRequired($this->params->keypairName())
+            ]
+        ];
+    }
+
+    public function postSecurityGroup(): array
+    {
+        return [
+            'method' => 'POST',
+            'path'   => 'servers/{id}/action',
+            'jsonKey' => 'addSecurityGroup',
+            'params' => [
+                'id'   => $this->params->urlId('server'),
+                'name' => $this->isRequired($this->params->name('securityGroup')),
+            ],
+        ];
+    }
+
+    public function deleteSecurityGroup(): array
+    {
+        return [
+            'method' => 'POST',
+            'path'   => 'servers/{id}/action',
+            'jsonKey' => 'removeSecurityGroup',
+            'params' => [
+                'id'   => $this->params->urlId('server'),
+                'name' => $this->isRequired($this->params->name('securityGroup')),
+            ],
+        ];
+    }
+
+    public function getSecurityGroups(): array
+    {
+        return [
+            'method'  => 'GET',
+            'path'    => 'servers/{id}/os-security-groups',
+            'jsonKey' => 'security_groups',
+            'params'  => [
+                'id' => $this->params->urlId('server')
+            ],
+        ];
+    }
+
+    public function getVolumeAttachments(): array
+    {
+        return [
+            'method' => 'GET',
+            'path' => 'servers/{id}/os-volume_attachments',
+            'jsonKey' => 'volumeAttachments',
+            'params' => [
+                'id' => $this->params->urlId('server')
+            ]
+        ];
+    }
+
+    public function postVolumeAttachments(): array
+    {
+        return [
+            'method' => 'POST',
+            'path' => 'servers/{id}/os-volume_attachments',
+            'jsonKey' => 'volumeAttachment',
+            'params' => [
+                'id' => $this->params->urlId('server'),
+                'volumeId' => $this->params->volumeId()
+            ]
+        ];
+    }
+
+    public function deleteVolumeAttachments(): array
+    {
+        return [
+            'method' => 'DELETE',
+            'path' => 'servers/{id}/os-volume_attachments/{attachmentId}',
+            'params' => [
+                'id' => $this->params->urlId('server'),
+                'attachmentId' => $this->params->attachmentId()
+            ]
+        ];
+    }
+
+    public function getHypervisorStatistics(): array
+    {
+        return [
+            'method' => 'GET',
+            'path' => 'os-hypervisors/statistics',
+            'params' => [
             ]
         ];
     }

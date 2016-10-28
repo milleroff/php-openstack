@@ -1,8 +1,8 @@
-<?php declare (strict_types=1);
+<?php declare(strict_types=1);
 
 namespace OpenStack\ObjectStore\v1;
 
-use OpenCloud\Common\Api\AbstractParams;
+use OpenStack\Common\Api\AbstractParams;
 use Psr\Http\Message\StreamInterface;
 
 class Params extends AbstractParams

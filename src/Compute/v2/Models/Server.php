@@ -1,22 +1,24 @@
-<?php declare (strict_types=1);
+<?php declare(strict_types=1);
 
 namespace OpenStack\Compute\v2\Models;
 
-use OpenCloud\Common\Resource\HasWaiterTrait;
-use OpenCloud\Common\Resource\Creatable;
-use OpenCloud\Common\Resource\Deletable;
-use OpenCloud\Common\Resource\Listable;
-use OpenCloud\Common\Resource\Retrievable;
-use OpenCloud\Common\Resource\Updateable;
-use OpenCloud\Common\Resource\AbstractResource;
-use OpenCloud\Common\Transport\Utils;
+use OpenStack\Common\Resource\HasWaiterTrait;
+use OpenStack\Common\Resource\Creatable;
+use OpenStack\Common\Resource\Deletable;
+use OpenStack\Common\Resource\Listable;
+use OpenStack\Common\Resource\Retrievable;
+use OpenStack\Common\Resource\Updateable;
+use OpenStack\Common\Resource\OperatorResource;
+use OpenStack\Common\Transport\Utils;
+use OpenStack\BlockStorage\v2\Models\VolumeAttachment;
 use OpenStack\Compute\v2\Enum;
+use OpenStack\Networking\v2\Extensions\SecurityGroups\Models\SecurityGroup;
 use Psr\Http\Message\ResponseInterface;
 
 /**
  * @property \OpenStack\Compute\v2\Api $api
  */
-class Server extends AbstractResource implements
+class Server extends OperatorResource implements
     Creatable,
     Updateable,
     Deletable,
@@ -161,6 +163,28 @@ class Server extends AbstractResource implements
     }
 
     /**
+     * Starts server
+     */
+    public function start()
+    {
+        $this->execute($this->api->startServer(), [
+            'id' => $this->id,
+            'os-start' => null
+        ]);
+    }
+
+    /**
+     * Stops server
+     */
+    public function stop()
+    {
+        $this->execute($this->api->stopServer(), [
+            'id' => $this->id,
+            'os-stop' => null
+        ]);
+    }
+
+    /**
      * Rebuilds the server.
      *
      * @param array $options {@see \OpenStack\Compute\v2\Api::rebuildServer}
@@ -203,6 +227,59 @@ class Server extends AbstractResource implements
     public function revertResize()
     {
         $this->execute($this->api->revertServerResize(), ['revertResize' => null, 'id' => $this->id]);
+    }
+
+    /**
+     * Gets a VNC console for a server.
+     *
+     * @param  string $type The type of VNC console: novnc|xvpvnc.
+     *                      Defaults to novnc.
+     *
+     * @return array
+     */
+    public function getVncConsole($type = Enum::CONSOLE_NOVNC): array
+    {
+        $response = $this->execute($this->api->getVncConsole(), ['id' => $this->id, 'type' => $type]);
+        return Utils::jsonDecode($response)['console'];
+    }
+
+    /**
+     * Gets a RDP console for a server.
+     *
+     * @param  string $type The type of VNC console: rdp-html5 (default).
+     *
+     * @return array
+     */
+    public function getRDPConsole($type = Enum::CONSOLE_RDP_HTML5): array
+    {
+        $response = $this->execute($this->api->getRDPConsole(), ['id' => $this->id, 'type' => $type]);
+        return Utils::jsonDecode($response)['console'];
+    }
+
+    /**
+     * Gets a Spice console for a server.
+     *
+     * @param  string $type The type of VNC console: spice-html5.
+     *
+     * @return array
+     */
+    public function getSpiceConsole($type = Enum::CONSOLE_SPICE_HTML5): array
+    {
+        $response = $this->execute($this->api->getSpiceConsole(), ['id' => $this->id, 'type' => $type]);
+        return Utils::jsonDecode($response)['console'];
+    }
+
+    /**
+     * Gets a serial console for a server.
+     *
+     * @param  string $type The type of VNC console: serial.
+     *
+     * @return array
+     */
+    public function getSerialConsole($type = Enum::CONSOLE_SERIAL): array
+    {
+        $response = $this->execute($this->api->getSerialConsole(), ['id' => $this->id, 'type' => $type]);
+        return Utils::jsonDecode($response)['console'];
     }
 
     /**
@@ -299,8 +376,83 @@ class Server extends AbstractResource implements
         $this->execute($this->api->deleteServerMetadataKey(), ['id' => $this->id, 'key' => $key]);
     }
 
+
+    /**
+     * Add security group to a server (addSecurityGroup action)
+     *
+     * @param array $options {@see \OpenStack\Compute\v2\Api::postSecurityGroup}
+     *
+     * @return SecurityGroup
+     */
+    public function addSecurityGroup(array $options) : SecurityGroup
+    {
+        $options['id'] = $this->id;
+
+        $response = $this->execute($this->api->postSecurityGroup(), $options);
+
+        return $this->model(SecurityGroup::class)->populateFromResponse($response);
+    }
+
+    /**
+     * Add security group to a server (addSecurityGroup action)
+     *
+     * @param array $options {@see \OpenStack\Compute\v2\Api::deleteSecurityGroup}
+     */
+    public function removeSecurityGroup(array $options)
+    {
+        $options['id'] = $this->id;
+        $this->execute($this->api->deleteSecurityGroup(), $options);
+    }
+
     public function parseMetadata(ResponseInterface $response): array
     {
         return Utils::jsonDecode($response)['metadata'];
+    }
+
+    /**
+     * Returns Generator for SecurityGroups
+     *
+     * @return \Generator
+     */
+    public function listSecurityGroups(): \Generator
+    {
+        return $this->model(SecurityGroup::class)->enumerate($this->api->getSecurityGroups(), ['id' => $this->id]);
+    }
+
+
+    /**
+     * Returns Generator for VolumeAttachment
+     *
+     * @return \Generator
+     */
+    public function listVolumeAttachments(): \Generator
+    {
+        return $this->model(VolumeAttachment::class)->enumerate($this->api->getVolumeAttachments(), ['id' => $this->id]);
+    }
+
+    /**
+     * Attach a volume and returns volume that was attached
+     *
+     * @param $volumeId
+     *
+     * @return VolumeAttachment
+     */
+    public function attachVolume(string $volumeId): VolumeAttachment
+    {
+        $response =  $this->execute($this->api->postVolumeAttachments(), ['id' => $this->id, 'volumeId' => $volumeId]);
+
+        return $this->model(VolumeAttachment::class)->populateFromResponse($response);
+    }
+
+    /**
+     * Detach a volume
+     *
+     * @param $attachmentId
+     *
+     * @return void
+     */
+    public function detachVolume(string $attachmentId)
+    {
+        $this->execute($this->api->deleteVolumeAttachments(), ['id' => $this->id, 'attachmentId' => $attachmentId]);
     }
 }

@@ -1,15 +1,15 @@
-<?php declare (strict_types=1);
+<?php declare(strict_types=1);
 
 namespace OpenStack\Identity\v2\Models;
 
-use OpenCloud\Common\Resource\AbstractResource;
+use OpenStack\Common\Resource\OperatorResource;
 
 /**
  * Represents an Identity v2 Catalog Entry.
  *
  * @package OpenStack\Identity\v2\Models
  */
-class Entry extends AbstractResource
+class Entry extends OperatorResource
 {
     /** @var string */
     public $name;

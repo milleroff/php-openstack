@@ -1,22 +1,22 @@
-<?php declare (strict_types=1);
+<?php declare(strict_types=1);
 
 namespace OpenStack\ObjectStore\v1\Models;
 
 use GuzzleHttp\Promise\Promise;
 use GuzzleHttp\Psr7\LimitStream;
 use Psr\Http\Message\ResponseInterface;
-use OpenCloud\Common\Error\BadResponseError;
-use OpenCloud\Common\Resource\AbstractResource;
-use OpenCloud\Common\Resource\Creatable;
-use OpenCloud\Common\Resource\Deletable;
-use OpenCloud\Common\Resource\HasMetadata;
-use OpenCloud\Common\Resource\Listable;
-use OpenCloud\Common\Resource\Retrievable;
+use OpenStack\Common\Error\BadResponseError;
+use OpenStack\Common\Resource\OperatorResource;
+use OpenStack\Common\Resource\Creatable;
+use OpenStack\Common\Resource\Deletable;
+use OpenStack\Common\Resource\HasMetadata;
+use OpenStack\Common\Resource\Listable;
+use OpenStack\Common\Resource\Retrievable;
 
 /**
  * @property \OpenStack\ObjectStore\v1\Api $api
  */
-class Container extends AbstractResource implements Creatable, Deletable, Retrievable, Listable, HasMetadata
+class Container extends OperatorResource implements Creatable, Deletable, Retrievable, Listable, HasMetadata
 {
     use MetadataTrait;
 

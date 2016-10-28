@@ -1,22 +1,22 @@
-<?php declare (strict_types=1);
+<?php declare(strict_types=1);
 
 namespace OpenStack\Images\v2\Models;
 
 use function GuzzleHttp\Psr7\uri_for;
-use OpenCloud\Common\JsonSchema\Schema;
-use OpenCloud\Common\Resource\AbstractResource;
-use OpenCloud\Common\Resource\Creatable;
-use OpenCloud\Common\Resource\Deletable;
-use OpenCloud\Common\Resource\Listable;
-use OpenCloud\Common\Resource\Retrievable;
-use OpenCloud\Common\Transport\Utils;
+use OpenStack\Common\JsonSchema\Schema;
+use OpenStack\Common\Resource\OperatorResource;
+use OpenStack\Common\Resource\Creatable;
+use OpenStack\Common\Resource\Deletable;
+use OpenStack\Common\Resource\Listable;
+use OpenStack\Common\Resource\Retrievable;
+use OpenStack\Common\Transport\Utils;
 use OpenStack\Images\v2\JsonPatch;
 use Psr\Http\Message\StreamInterface;
 
 /**
  * @property \OpenStack\Images\v2\Api $api
  */
-class Image extends AbstractResource implements Creatable, Listable, Retrievable, Deletable
+class Image extends OperatorResource implements Creatable, Listable, Retrievable, Deletable
 {
     /** @var string */
     public $status;

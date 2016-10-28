@@ -1,11 +1,11 @@
-<?php declare (strict_types=1);
+<?php declare(strict_types=1);
 
 namespace OpenStack\Identity\v3;
 
 use GuzzleHttp\ClientInterface;
-use OpenCloud\Common\Auth\IdentityService;
-use OpenCloud\Common\Error\BadResponseError;
-use OpenCloud\Common\Service\AbstractService;
+use OpenStack\Common\Auth\IdentityService;
+use OpenStack\Common\Error\BadResponseError;
+use OpenStack\Common\Service\AbstractService;
 use OpenStack\Identity\v3\Models;
 
 /**

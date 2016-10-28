@@ -2,7 +2,7 @@
 
 namespace OpenStack\integration;
 
-use OpenCloud\Integration\SampleManagerInterface;
+use OpenStack\Integration\SampleManagerInterface;
 
 class SampleManager implements SampleManagerInterface
 {
@@ -40,11 +40,16 @@ class SampleManager implements SampleManagerInterface
         ];
     }
 
+    public function getConnectionStr()
+    {
+        return str_replace('$openstack =', 'return', $this->getConnectionTemplate());
+    }
+
     protected function getConnectionTemplate()
     {
         if ($this->verbosity === 1) {
             $subst = <<<'EOL'
-use OpenCloud\Integration\DefaultLogger;
+use OpenStack\Integration\DefaultLogger;
 use OpenStack\Integration\Utils;
 use GuzzleHttp\MessageFormatter;
 
@@ -57,7 +62,7 @@ $openstack = new OpenStack\OpenStack(Utils::getAuthOpts($options));
 EOL;
         } elseif ($this->verbosity === 2) {
             $subst = <<<'EOL'
-use OpenCloud\Integration\DefaultLogger;
+use OpenStack\Integration\DefaultLogger;
 use OpenStack\Integration\Utils;
 use GuzzleHttp\MessageFormatter;
 

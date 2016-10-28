@@ -1,11 +1,37 @@
-<?php declare (strict_types=1);
+<?php declare(strict_types=1);
 
 namespace OpenStack\Networking\v2;
 
-use OpenCloud\Common\Api\AbstractParams;
+use OpenStack\Common\Api\AbstractParams;
 
 class Params extends AbstractParams
 {
+    /**
+     * Returns information about description parameter
+     *
+     * @return array
+     */
+    public function descriptionJson(): array
+    {
+        return [
+            'type'     => self::STRING_TYPE,
+            'location' => self::JSON,
+        ];
+    }
+
+    /**
+     * Returns information about name parameter
+     *
+     * @return array
+     */
+    public function nameJson(): array
+    {
+        return [
+            'type'     => self::STRING_TYPE,
+            'location' => self::JSON,
+        ];
+    }
+
     public function urlId($type): array
     {
         return array_merge(parent::id($type), [
@@ -338,6 +364,42 @@ class Params extends AbstractParams
             'location'    => self::JSON,
             'sentAs'      => 'device_id',
             'description' => 'The UUID of the device that uses this port. For example, a virtual server.',
+        ];
+    }
+
+    public function queryName(): array
+    {
+        return $this->queryFilter('name');
+    }
+
+    public function queryTenantId(): array
+    {
+        return $this->queryFilter('tenant_id');
+    }
+
+    public function queryStatus(): array
+    {
+        return $this->queryFilter('status');
+    }
+
+    private function queryFilter($field): array
+    {
+        return [
+            'type'        => self::STRING_TYPE,
+            'location'    => self::QUERY,
+            'sentAs'      => $field,
+            'description' => 'The Neutron API supports filtering based on all top level attributes of a resource.
+            Filters are applicable to all list requests.',
+        ];
+    }
+
+    public function routerAccessibleJson(): array
+    {
+        return [
+            'type'        => self::BOOL_TYPE,
+            'location'    => self::JSON,
+            'sentAs'      => 'router:external',
+            'description' => 'Indicates whether this network is externally accessible.',
         ];
     }
 }

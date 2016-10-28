@@ -1,8 +1,8 @@
-<?php declare (strict_types=1);
+<?php declare(strict_types=1);
 
 namespace OpenStack\Compute\v2;
 
-use OpenCloud\Common\Api\AbstractParams;
+use OpenStack\Common\Api\AbstractParams;
 
 class Params extends AbstractParams
 {
@@ -376,6 +376,82 @@ EOL
             'required'    => false,
             'sentAs'      => 'key_name',
             'description' => 'The key name',
+        ];
+    }
+
+    public function keypairPublicKey(): array
+    {
+        return [
+            'type'        => self::STRING_TYPE,
+            'required'    => true,
+            'sentAs'      => 'public_key',
+            'location'    => self::JSON,
+            'description' => 'The public ssh key to import. If you omit this value, a key is generated.',
+        ];
+    }
+
+    public function keypairName(): array
+    {
+        return [
+            'location'   => self::URL,
+        ];
+    }
+
+    public function flavorRam(): array
+    {
+        return [
+            'type'     => self::INT_TYPE,
+            'location' => self::JSON
+        ];
+    }
+
+    public function flavorVcpus(): array
+    {
+        return [
+            'type'     => self::INT_TYPE,
+            'location' => self::JSON
+        ];
+    }
+
+    public function flavorDisk(): array
+    {
+        return [
+            'type'     => self::INT_TYPE,
+            'location' => self::JSON
+        ];
+    }
+
+    public function flavorSwap(): array
+    {
+        return [
+            'type'     => self::INT_TYPE,
+            'location' => self::JSON
+        ];
+    }
+
+    public function volumeId(): array
+    {
+        return [
+            'type'     => self::STRING_TYPE,
+            'location' => self::JSON,
+        ];
+    }
+
+    public function attachmentId(): array
+    {
+        return [
+            'type'     => self::STRING_TYPE,
+            'location' => self::URL,
+            'required' => true,
+        ];
+    }
+
+    public function consoleType(): array
+    {
+        return [
+            'type' => self::STRING_TYPE,
+            'location' => self::JSON,
+            'required' => true
         ];
     }
 }
